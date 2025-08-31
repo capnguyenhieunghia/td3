@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+  <meta name="theme-color" content="#0f3d2e" />
+  <title>Tiểu đoàn 3 – Lữ đoàn 572 | Quân khu 5</title>
+  <style>
+    :root{
+      --bg:#0a1f1a;         /* nền xanh quân đội đậm */
+      --bg-soft:#0f3d2e;    /* tông phụ */
+      --card:#122923;       /* nền thẻ */
+      --text:#e7f5ef;       /* chữ chính */
+      --muted:#a8c7bb;      /* chữ phụ */
+      --accent:#2fe6a5;     /* nhấn */
+      --danger:#ff6b6b;     /* cảnh báo */
+      --ok:#3ddc97;         /* sẵn sàng */
+      --border: #1f4b3c;    /* viền */
+      --shadow: 0 10px 30px rgba(0,0,0,.35);
+      --radius: 16px;
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    html,body{height:100%}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+      background: linear-gradient(180deg,var(--bg) 0%, #0b271f 100%);
+      color:var(--text);
+      display:flex; flex-direction:column;
+    }
+    /* Header */
+    header{
+      position:sticky; top:0; z-index:10;
+      background:linear-gradient(180deg,var(--bg-soft),rgba(15,61,46,.9));
+      backdrop-filter:saturate(140%) blur(8px);
+      border-bottom:1px solid var(--border);
+    }
+    .topbar{
+      display:flex; align-items:center; gap:.75rem;
+      padding:.9rem 1rem;
+    }
+    .crest{width:36px; height:36px; border-radius:10px; background: radial-gradient(circle at 30% 30%, #ffc107, #c62828); display:grid; place-items:center; box-shadow:var(--shadow);}
+    .crest svg{width:22px;height:22px;}
+    .unit{display:flex; flex-direction:column; line-height:1.15}
+    .unit b{font-weight:800; letter-spacing:.2px}
+    .meta{font-size:.8rem; color:var(--muted)}
+    .quick{
+      margin-left:auto; display:flex; gap:.5rem;
+    }
+    .iconbtn{border:1px solid var(--border); background:transparent; color:var(--text); padding:.55rem; border-radius:12px; display:grid; place-items:center}
+    .iconbtn:active{transform:scale(.96)}
+
+    /* Search */
+    .search-wrap{padding:.75rem 1rem 0}
+    .search{display:flex; align-items:center; gap:.5rem; background:var(--card); border:1px solid var(--border); border-radius:999px; padding:.6rem .9rem}
+    .search input{flex:1; background:transparent; border:0; outline:none; color:var(--text); font-size:.95rem}
+    .search svg{opacity:.8}
+
+    /* Content area */
+    main{flex:1; padding: .75rem 1rem 5.5rem; /* space for tabbar */}
+
+    .grid{display:grid; gap:1rem}
+    .card{background:linear-gradient(180deg, rgba(18,41,35,.9), rgba(18,41,35,.7)); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow)}
+    .card h3{margin:0; padding: .9rem 1rem; border-bottom:1px dashed var(--border);}
+    .card .body{padding: .9rem 1rem}
+
+    .pill{display:inline-flex; align-items:center; gap:.4rem; padding:.25rem .6rem; border-radius:999px; font-size:.75rem; border:1px solid var(--border); background:rgba(0,0,0,.15)}
+    .badge{font-size:.7rem; padding:.2rem .45rem; border:1px solid var(--border); border-radius:6px; margin-left:.5rem; opacity:.85}
+
+    /* Ticker */
+    .ticker{display:flex; gap:.75rem; align-items:center; overflow:auto; padding:.5rem 1rem}
+    .chip{white-space:nowrap; background:rgba(0,0,0,.2); border:1px solid var(--border); padding:.4rem .6rem; border-radius:999px; font-size:.8rem}
+
+    /* List */
+    .list{display:flex; flex-direction:column; gap:.75rem}
+    .item{display:flex; gap:.75rem; padding:.75rem; border:1px solid var(--border); border-radius:14px; background:rgba(0,0,0,.15)}
+    .item .left{width:44px; height:44px; border-radius:12px; display:grid; place-items:center; background:var(--bg-soft); border:1px solid var(--border)}
+    .item .meta{font-size:.78rem}
+
+    /* Tables */
+    table{width:100%; border-collapse:separate; border-spacing:0; overflow:hidden}
+    th, td{padding:.6rem .5rem; border-bottom:1px dashed var(--border); text-align:left}
+    th{font-size:.8rem; text-transform:uppercase; letter-spacing:.3px; color:var(--muted)}
+    tr:last-child td{border-bottom:0}
+
+    /* Gallery */
+    .gallery{display:grid; grid-template-columns:repeat(3,1fr); gap:.5rem}
+    .gallery img{width:100%; aspect-ratio:1/1; object-fit:cover; border-radius:12px; border:1px solid var(--border)}
+
+    /* Form */
+    .form{display:grid; gap:.75rem}
+    .form label{font-size:.85rem; color:var(--muted)}
+    .form input,.form textarea, .form select{
+      width:100%; padding:.7rem .9rem; border-radius:12px; border:1px solid var(--border); background:rgba(0,0,0,.15); color:var(--text); outline:none
+    }
+    .btn{display:inline-flex; align-items:center; justify-content:center; gap:.5rem; padding:.75rem 1rem; border-radius:12px; border:1px solid var(--border); background:linear-gradient(180deg,#11503e,#0e3f31); color:var(--text); font-weight:600}
+    .btn.primary{background:linear-gradient(180deg, #00c389, #0aa36e); color:#04231c}
+    .btn.danger{background:linear-gradient(180deg, #f87171, #dc2626);}
+
+    /* Tab bar */
+    nav.tabbar{
+      position:fixed; bottom:0; left:0; right:0; z-index:20;
+      display:grid; grid-template-columns: repeat(5,1fr);
+      background:linear-gradient(180deg, rgba(10,31,26,.2), rgba(10,31,26,.9));
+      backdrop-filter:saturate(140%) blur(8px);
+      border-top:1px solid var(--border);
+    }
+    .tab{
+      -webkit-user-select:none; user-select:none; cursor:pointer;
+      display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.25rem;
+      padding:.6rem .25rem; color:var(--muted)
+    }
+    .tab.active{color:var(--text)}
+    .tab svg{opacity:.9}
+    .notif{position:absolute; margin-left:14px; margin-top:-6px; background:var(--danger); width:8px; height:8px; border-radius:999px}
+
+    /* Utility */
+    .row{display:flex; gap:.5rem; align-items:center}
+    .between{display:flex; align-items:center; justify-content:space-between}
+    .muted{color:var(--muted)}
+    .hidden{display:none!important}
+    .mt{margin-top:.5rem}
+    .mt1{margin-top:1rem}
+    .mt2{margin-top:1.5rem}
+    .mt3{margin-top:2rem}
+
+    /* Lightbox */
+    .lightbox{position:fixed; inset:0; background:rgba(0,0,0,.85); display:none; align-items:center; justify-content:center; z-index:50}
+    .lightbox img{max-width:92vw; max-height:82vh; border-radius:16px; border:1px solid var(--border)}
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: no-preference){
+      .fade-in{animation:fade .45s ease}
+      @keyframes fade{from{opacity:0; transform:translateY(6px)} to{opacity:1; transform:none}}
+      .tap{transition:transform .08s ease}
+      .tap:active{transform:scale(.98)}
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="topbar">
+      <div class="crest" aria-hidden="true">
+        <!-- Ngôi sao -->
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2l2.9 6.3 6.9.6-5.2 4.6 1.6 6.7L12 16.9 5.8 20.2l1.6-6.7L2.2 8.9l6.9-.6L12 2z" fill="#ffd54f"/>
+        </svg>
+      </div>
+      <div class="unit">
+        <b>Tiểu đoàn 3 – Lữ đoàn 572</b>
+        <span class="meta">Quân khu 5 · Kỷ luật – Chính quy – Tinh nhuệ</span>
+      </div>
+      <div class="quick">
+        <button class="iconbtn tap" title="Chế độ chữ to" id="btnFont">A</button>
+        <button class="iconbtn tap" title="Bật/Tắt tối ưu pin" id="btnBattery">⚡</button>
+      </div>
+    </div>
+    <div class="search-wrap">
+      <div class="search">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="10" cy="10" r="7" stroke="currentColor" stroke-width="2"/></svg>
+        <input id="search" placeholder="Tìm nhanh: tin tức, lịch, tài liệu…" aria-label="Tìm kiếm" />
+      </div>
+    </div>
+    <div class="ticker" id="ticker">
+      <span class="chip">📣 Thông báo trực ban 24/7</span>
+      <span class="chip">🛡️ Sẵn sàng chiến đấu mức 1</span>
+      <span class="chip">📅 Tuần 35/2025: huấn luyện chiến thuật</span>
+      <span class="chip">🏅 Thi đua “Quyết thắng”</span>
+    </div>
+  </header>
+
+  <!-- Content -->
+  <main id="app" class="fade-in">
+
+    <!-- Trang chủ -->
+    <section class="route" data-route="home">
+      <div class="grid">
+        <div class="card">
+          <h3>Điểm nhấn hôm nay <span class="badge" id="today"></span></h3>
+          <div class="body">
+            <div class="list" id="highlights">
+              <div class="item">
+                <div class="left">⏰</div>
+                <div>
+                  <div><b>05:00</b> Báo thức – Thể dục buổi sáng</div>
+                  <div class="meta">Khu trung tâm – Tiểu đoàn</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="left">🎯</div>
+                <div>
+                  <div><b>08:00</b> Huấn luyện bắn súng (AK)</div>
+                  <div class="meta">Trường bắn – Trung đội 1,2</div>
+                </div>
+              </div>
+              <div class="item">
+                <div class="left">📚</div>
+                <div>
+                  <div><b>14:00</b> Giáo dục chính trị</div>
+                  <div class="meta">Nhà đa năng – Toàn tiểu đoàn</div>
+                </div>
+              </div>
+            </div>
+            <div class="mt1 between">
+              <span class="pill">Mức SSCĐ: <b style="color:var(--ok)">Cao</b></span>
+              <button class="btn tap" onclick="navigate('schedule')">Xem lịch tuần</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Tin mới</h3>
+          <div class="body">
+            <div class="list" id="news">
+              <!-- Tin mẫu -->
+              <div class="item" data-title="Diễn tập CH-TM" data-tags="diễn tập, chỉ huy – tham mưu">
+                <div class="left">🗺️</div>
+                <div>
+                  <div><b>Diễn tập CH–TM cấp tiểu đoàn</b></div>
+                  <div class="meta">31/08/2025 · Tổ chức theo kế hoạch 572/CT</div>
+                </div>
+              </div>
+              <div class="item" data-title="Bàn giao chiến sĩ mới" data-tags="chiến sĩ mới, công tác đảng công tác chính trị">
+                <div class="left">🤝</div>
+                <div>
+                  <div><b>Bàn giao chiến sĩ mới đợt 2</b></div>
+                  <div class="meta">29/08/2025 · Chuẩn bị khu nhà ở, vật chất</div>
+                </div>
+              </div>
+              <div class="item" data-title="Hội thao thể dục thể thao" data-tags="thể thao, thi đua quyết thắng">
+                <div class="left">🏃</div>
+                <div>
+                  <div><b>Hội thao TDTT cấp lữ đoàn</b></div>
+                  <div class="meta">27/08/2025 · Đạt 2 huy chương vàng</div>
+                </div>
+              </div>
+            </div>
+            <div class="mt1 between">
+              <span class="muted" id="newsCount">3 tin</span>
+              <button class="btn tap" onclick="navigate('newsRoute')">Xem tất cả</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Truy cập nhanh</h3>
+          <div class="body">
+            <div class="grid" style="grid-template-columns:repeat(3,1fr); gap:.75rem">
+              <button class="btn tap" onclick="navigate('duty')">📟 Trực ban</button>
+              <button class="btn tap" onclick="navigate('docs')">📂 Tài liệu</button>
+              <button class="btn tap" onclick="navigate('gallery')">🖼️ Thư viện</button>
+              <a class="btn tap" href="tel:+84123456789">📞 Gọi chỉ huy</a>
+              <a class="btn tap" href="sms:+84123456789?body=Bao%20cao" >✉️ SMS báo cáo</a>
+              <button class="btn danger tap" onclick="alert('S.O.S đã ghi nhận. Liên hệ trực ban ngay!')">🆘 S.O.S</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tin tức đầy đủ -->
+    <section class="route hidden" data-route="newsRoute">
+      <div class="card">
+        <h3>Tin tức – Thông báo</h3>
+        <div class="body">
+          <div class="list" id="newsFull"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Lịch công tác -->
+    <section class="route hidden" data-route="schedule">
+      <div class="card">
+        <h3>Lịch tuần 35/2025 <span class="badge">Cập nhật 30/08</span></h3>
+        <div class="body">
+          <table aria-label="Lịch tuần">
+            <thead>
+              <tr><th>Thứ</th><th>Sáng</th><th>Chiều</th><th>Tối</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Hai</td><td>Thể lực</td><td>Chiến thuật</td><td>Tự học</td></tr>
+              <tr><td>Ba</td><td>Bắn súng</td><td>Kỹ thuật</td><td>Sinh hoạt tiểu đội</td></tr>
+              <tr><td>Tư</td><td>Điều lệnh</td><td>Giáo dục chính trị</td><td>Văn hóa</td></tr>
+              <tr><td>Năm</td><td>Hậu cần</td><td>Công tác Đảng, CTCT</td><td>Ôn luyện</td></tr>
+              <tr><td>Sáu</td><td>Cứu hộ cứu nạn</td><td>Diễn tập</td><td>Rèn kỷ luật</td></tr>
+              <tr><td>Bảy</td><td>Vệ sinh doanh trại</td><td>Thể thao</td><td>Sinh hoạt đoàn</td></tr>
+              <tr><td>CN</td><td>Nghỉ</td><td>Nghỉ</td><td>Tuần tra</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="card mt1">
+        <h3>Kế hoạch sắp tới</h3>
+        <div class="body list">
+          <div class="item"><div class="left">📋</div><div><b>Rà soát vũ khí trang bị</b><div class="meta">01/09/2025 · Kho K1</div></div></div>
+          <div class="item"><div class="left">🚑</div><div><b>Diễn tập CH–CN</b><div class="meta">05/09/2025 · Phối hợp quân y</div></div></div>
+          <div class="item"><div class="left">🏕️</div><div><b>Hành quân dã ngoại</b><div class="meta">10/09/2025 · Trung đội 3</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Trực ban – Quân số -->
+    <section class="route hidden" data-route="duty">
+      <div class="card">
+        <h3>Trực ban hôm nay <span class="badge">TĐ: 0987 654 321</span></h3>
+        <div class="body">
+          <table aria-label="Trực ban">
+            <thead><tr><th>Vị trí</th><th>Cán bộ/Chiến sĩ</th><th>Giờ</th></tr></thead>
+            <tbody>
+              <tr><td>Trực ban chỉ huy</td><td>Đ/c Nguyễn Văn A</td><td>24/24</td></tr>
+              <tr><td>Tổng đài</td><td>Đ/c Trần Văn B</td><td>06:00–18:00</td></tr>
+              <tr><td>Cổng gác 1</td><td>Tiểu đội 1</td><td>06:00–12:00</td></tr>
+              <tr><td>Cổng gác 2</td><td>Tiểu đội 2</td><td>12:00–18:00</td></tr>
+              <tr><td>Tuần tra</td><td>Trung đội 3</td><td>18:00–06:00</td></tr>
+            </tbody>
+          </table>
+          <div class="mt1 between">
+            <span class="pill">Tình trạng: <b style="color:var(--ok)">Ổn định</b></span>
+            <a class="btn tap" href="tel:+84987654321">Gọi trực ban</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tài liệu – Mẫu biểu -->
+    <section class="route hidden" data-route="docs">
+      <div class="card">
+        <h3>Tài liệu – Mẫu biểu</h3>
+        <div class="body">
+          <div class="list" id="docsList">
+            <a class="item" href="#" download>
+              <div class="left">📄</div>
+              <div><b>Kế hoạch huấn luyện tuần (mẫu .docx)</b><div class="meta">Cập nhật 31/08/2025</div></div>
+            </a>
+            <a class="item" href="#" download>
+              <div class="left">📝</div>
+              <div><b>Biểu mẫu trực ban (mẫu .xlsx)</b><div class="meta">Áp dụng toàn tiểu đoàn</div></div>
+            </a>
+            <a class="item" href="#" download>
+              <div class="left">📦</div>
+              <div><b>Danh mục VKTB (PDF)</b><div class="meta">Tháng 09/2025</div></div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Thư viện ảnh -->
+    <section class="route hidden" data-route="gallery">
+      <div class="card">
+        <h3>Thư viện ảnh</h3>
+        <div class="body">
+          <div class="gallery" id="gallery">
+            <img src="https://picsum.photos/seed/572a/600" alt="Ảnh hoạt động 1" />
+            <img src="https://picsum.photos/seed/572b/600" alt="Ảnh hoạt động 2" />
+            <img src="https://picsum.photos/seed/572c/600" alt="Ảnh hoạt động 3" />
+            <img src="https://picsum.photos/seed/572d/600" alt="Ảnh hoạt động 4" />
+            <img src="https://picsum.photos/seed/572e/600" alt="Ảnh hoạt động 5" />
+            <img src="https://picsum.photos/seed/572f/600" alt="Ảnh hoạt động 6" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Liên hệ – Góp ý -->
+    <section class="route hidden" data-route="contact">
+      <div class="card">
+        <h3>Liên hệ – Góp ý</h3>
+        <div class="body">
+          <form class="form" onsubmit="sendFeedback(event)">
+            <div>
+              <label>Họ tên</label>
+              <input required placeholder="Nhập họ tên" id="fName" />
+            </div>
+            <div>
+              <label>Đơn vị/Bộ phận</label>
+              <select id="fUnit">
+                <option>Tiểu đoàn 3</option>
+                <option>Trung đội 1</option>
+                <option>Trung đội 2</option>
+                <option>Trung đội 3</option>
+              </select>
+            </div>
+            <div>
+              <label>Nội dung góp ý</label>
+              <textarea required rows="4" placeholder="Nhập nội dung" id="fMsg"></textarea>
+            </div>
+            <div class="between">
+              <label class="row"><input type="checkbox" id="fAnon" />&nbsp;Gửi ẩn danh</label>
+              <button class="btn primary tap" type="submit">Gửi góp ý</button>
+            </div>
+          </form>
+          <div class="mt1 muted">* Dữ liệu chỉ lưu trên thiết bị (demo). Khi triển khai thật cần kết nối máy chủ nội bộ.</div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Tabbar -->
+  <nav class="tabbar" role="tablist" aria-label="Điều hướng chính">
+    <button class="tab active" role="tab" aria-selected="true" onclick="navigate('home', this)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 10l9-7 9 7v9a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-4H9v4a2 2 0 0 1-2 2H3z" stroke="currentColor" stroke-width="2"/></svg>
+      <small>Trang chủ</small>
+    </button>
+    <button class="tab" role="tab" onclick="navigate('newsRoute', this)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 5h16M4 9h16M4 13h10M4 17h10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <small>Tin tức</small>
+    </button>
+    <button class="tab" role="tab" onclick="navigate('schedule', this)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="3" y="4" width="18" height="17" rx="2" stroke="currentColor" stroke-width="2"/><path d="M3 9h18" stroke="currentColor" stroke-width="2"/></svg>
+      <small>Lịch CT</small>
+    </button>
+    <button class="tab" role="tab" onclick="navigate('duty', this)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M20 7l-8 4-8-4 8-4 8 4z" stroke="currentColor" stroke-width="2"/><path d="M4 11l8 4 8-4" stroke="currentColor" stroke-width="2"/></svg>
+      <small>Trực ban</small>
+    </button>
+    <button class="tab" role="tab" onclick="navigate('contact', this)">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v8z" stroke="currentColor" stroke-width="2"/></svg>
+      <small>Liên hệ</small>
+    </button>
+  </nav>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" onclick="this.style.display='none'">
+    <img alt="Xem ảnh" />
+  </div>
+
+  <script>
+    // Hiển thị ngày hôm nay
+    const todayEl = document.getElementById('today');
+    const now = new Date();
+    const f = Intl.DateTimeFormat('vi-VN', {weekday:'long', day:'2-digit', month:'2-digit', year:'numeric'});
+    todayEl.textContent = f.format(now);
+
+    // Điều hướng
+    function navigate(route, el){
+      document.querySelectorAll('.route').forEach(s=>s.classList.add('hidden'));
+      const target = document.querySelector(`[data-route="${route}"]`);
+      if(target){ target.classList.remove('hidden'); target.classList.add('fade-in'); }
+      // Tab active
+      if(el){
+        document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+        el.classList.add('active');
+        document.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected','false'));
+        el.setAttribute('aria-selected','true');
+      }
+      window.scrollTo({top:0, behavior:'smooth'});
+    }
+
+    // Tìm kiếm tin tức + tài liệu theo từ khóa
+    const search = document.getElementById('search');
+    search.addEventListener('input', (e)=>{
+      const q = e.target.value.toLowerCase();
+      filterList('#news .item', q);
+      filterList('#docsList .item', q);
+      // nhân bản danh sách tin sang trang đầy đủ
+      renderNewsFull();
+    });
+
+    function filterList(selector, q){
+      document.querySelectorAll(selector).forEach(it=>{
+        const title = (it.dataset.title||it.textContent||'').toLowerCase();
+        const tags = (it.dataset.tags||'').toLowerCase();
+        it.style.display = (title.includes(q) || tags.includes(q)) ? 'flex' : 'none';
+      })
+      // Cập nhật đếm tin
+      if(selector.includes('#news ')){
+        const visible = Array.from(document.querySelectorAll('#news .item')).filter(i=>i.style.display!=="none").length;
+        document.getElementById('newsCount').textContent = visible + ' tin';
+      }
+    }
+
+    function renderNewsFull(){
+      const container = document.getElementById('newsFull');
+      container.innerHTML = '';
+      document.querySelectorAll('#news .item').forEach((node)=>{
+        if(node.style.display==='none') return;
+        const clone = node.cloneNode(true);
+        container.appendChild(clone);
+      });
+      if(!container.children.length){
+        container.innerHTML = '<div class="muted">Không có tin phù hợp. Thử từ khóa khác.</div>';
+      }
+    }
+    renderNewsFull();
+
+    // Phóng to ảnh (lightbox)
+    document.querySelectorAll('#gallery img').forEach(img=>{
+      img.addEventListener('click', ()=>{
+        const lb = document.getElementById('lightbox');
+        lb.querySelector('img').src = img.src;
+        lb.style.display = 'flex';
+      })
+    })
+
+    // Góp ý (demo lưu LocalStorage)
+    function sendFeedback(e){
+      e.preventDefault();
+      const data = {
+        name: document.getElementById('fName').value,
+        unit: document.getElementById('fUnit').value,
+        msg: document.getElementById('fMsg').value,
+        anon: document.getElementById('fAnon').checked,
+        time: new Date().toISOString()
+      };
+      const key = 'td3_feedback';
+      const cur = JSON.parse(localStorage.getItem(key)||'[]');
+      cur.push(data); localStorage.setItem(key, JSON.stringify(cur));
+      alert('Đã ghi nhận góp ý! (demo)');
+      e.target.reset();
+    }
+
+    // Nút chữ to + chế độ tiết kiệm pin (giảm hiệu ứng)
+    const btnFont = document.getElementById('btnFont');
+    let big = false; btnFont.addEventListener('click', ()=>{
+      big = !big; document.body.style.fontSize = big ? '18px' : '';
+      btnFont.style.borderColor = big ? 'var(--accent)' : 'var(--border)';
+    })
+    const btnBattery = document.getElementById('btnBattery');
+    let saver = false; btnBattery.addEventListener('click', ()=>{
+      saver = !saver; document.querySelectorAll('*').forEach(el=>{
+        el.style.transition = saver ? 'none' : '';
+        el.classList.remove('fade-in');
+      });
+      btnBattery.style.borderColor = saver ? 'var(--accent)' : 'var(--border)';
+    })
+
+    // Tự động ẩn/hiện ticker khi cuộn
+    let lastY = 0; const ticker = document.getElementById('ticker');
+    document.addEventListener('scroll', ()=>{
+      const y = window.scrollY;
+      ticker.style.display = y>lastY && y>60 ? 'none' : 'flex';
+      lastY = y;
+    })
+
+    // Khởi tạo route từ hash (#)
+    const initRoute = ()=>{
+      const r = (location.hash||'#home').replace('#','');
+      const tab = Array.from(document.querySelectorAll('.tab')).find(t=>t.textContent.trim().toLowerCase().includes(r==='newsRoute'?'tin tức':r));
+      navigate(r, tab || document.querySelector('.tab'))
+    }
+    window.addEventListener('hashchange', initRoute); initRoute();
+  </script>
+</body>
+</html>

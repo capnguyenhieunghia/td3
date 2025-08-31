@@ -1,0 +1,1847 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiểu đoàn 3 - Lữ đoàn 572 - Quân khu 5</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .header-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .logo-text h1 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .logo-text p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .nav {
+            display: flex;
+            list-style: none;
+            gap: 1.5rem;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+            position: relative;
+        }
+
+        .nav a:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(30,58,138,0.9) 0%, rgba(55,48,163,0.9) 100%), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 600"><rect fill="%231e40af" width="1000" height="600"/><polygon fill="%233730a3" points="0,600 300,400 600,500 1000,300 1000,600"/><circle fill="%23ef4444" cx="200" cy="150" r="30" opacity="0.3"/><circle fill="%23ef4444" cx="800" cy="250" r="20" opacity="0.2"/></svg>');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            color: white;
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        /* Sections */
+        .section {
+            padding: 5rem 0;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h3 {
+            font-size: 2.5rem;
+            color: #1e3a8a;
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .section-title h3::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-radius: 2px;
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            text-align: center;
+            border-left: 4px solid #ef4444;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.15);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1e3a8a, #3730a3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        /* Calendar Section */
+        .calendar-section {
+            background: #f8fafc;
+        }
+
+        .calendar-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .calendar-main {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e5e7eb;
+        }
+
+        .calendar-nav {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .calendar-nav button {
+            background: #1e3a8a;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-nav button:hover {
+            background: #3730a3;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 1px;
+            background: #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .calendar-day {
+            background: white;
+            padding: 1rem;
+            text-align: center;
+            min-height: 80px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-day:hover {
+            background: #f3f4f6;
+        }
+
+        .calendar-day.has-event {
+            background: #fef3c7;
+        }
+
+        .calendar-day.has-event::after {
+            content: '•';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #ef4444;
+            font-size: 1.5rem;
+        }
+
+        .upcoming-events {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .event-item {
+            padding: 1rem;
+            border-left: 4px solid #ef4444;
+            background: #fef3c7;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .event-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(239, 68, 68, 0.2);
+        }
+
+        .event-date {
+            font-weight: bold;
+            color: #1e3a8a;
+            font-size: 0.9rem;
+        }
+
+        .event-title {
+            font-weight: bold;
+            margin: 0.5rem 0;
+            color: #333;
+        }
+
+        /* Documents Section */
+        .documents-section {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%);
+            color: white;
+        }
+
+        .documents-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .document-category {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .document-category:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-5px);
+        }
+
+        .document-category h4 {
+            color: #fbbf24;
+            margin-bottom: 1rem;
+            font-size: 1.3rem;
+        }
+
+        .document-list {
+            list-style: none;
+        }
+
+        .document-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .document-list li:hover {
+            padding-left: 10px;
+            color: #fbbf24;
+        }
+
+        .document-list li::before {
+            content: '📄';
+            font-size: 1rem;
+        }
+
+        /* Training Section */
+        .training-section {
+            background: #f8fafc;
+        }
+
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .training-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .training-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.15);
+        }
+
+        .training-header {
+            background: linear-gradient(135deg, #1e3a8a, #3730a3);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .training-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .training-content {
+            padding: 2rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #e5e7eb;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #ef4444, #dc2626);
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        /* News Section */
+        .news-section {
+            background: white;
+        }
+
+        .news-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .news-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border-left: 4px solid #ef4444;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(30, 58, 138, 0.15);
+        }
+
+        .news-image {
+            height: 200px;
+            background: linear-gradient(45deg, #1e3a8a, #3730a3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .news-content {
+            padding: 1.5rem;
+        }
+
+        .news-date {
+            color: #ef4444;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .news-title {
+            color: #1e3a8a;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        /* Dashboard Section */
+        .dashboard {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .dashboard-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-card:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-5px);
+        }
+
+        .dashboard-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #fbbf24;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: #f8fafc;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+
+        .contact-info {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #1e3a8a, #3730a3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            color: #1e3a8a;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1e3a8a;
+            box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.1);
+        }
+
+        /* Footer */
+        .footer {
+            background: #1a1a1a;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            color: #fbbf24;
+            margin-bottom: 1rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid #333;
+            color: #888;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+
+        .mobile-menu span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            *{
+                display: none;
+            }
+            .nav {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: flex;
+            }
+            
+            .hero h2 {
+                font-size: 2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .calendar-container {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .calendar-grid {
+                font-size: 0.8rem;
+            }
+            
+            .calendar-day {
+                min-height: 60px;
+                padding: 0.5rem;
+            }
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #888;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        /* Notification Badge */
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background: #ef4444;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">TD3</div>
+                <div class="logo-text">
+                    <h1>Tiểu đoàn 3</h1>
+                    <p>Lữ đoàn 572 - Quân khu 5</p>
+                </div>
+            </div>
+            <nav class="nav">
+                <a href="#home">Trang chủ</a>
+                <a href="#about">Giới thiệu</a>
+                <a href="#calendar">Lịch công tác</a>
+                <a href="#documents">Văn bản</a>
+                <a href="#training">Huấn luyện</a>
+                <a href="#news">Tin tức</a>
+                <a href="#contact">Liên hệ</a>
+                <a href="#" onclick="openModal('loginModal')" style="position: relative;">
+                    Đăng nhập
+                    <span class="notification-badge">3</span>
+                </a>
+            </nav>
+            <div class="mobile-menu" onclick="toggleMobileMenu()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h2>Tiểu đoàn 3 - Lữ đoàn 572</h2>
+            <p>Đơn vị anh hùng - Truyền thống vẻ vang - Sẵn sàng chiến đấu bảo vệ Tổ quốc</p>
+            <div class="cta-buttons">
+                <a href="#about" class="btn btn-primary">Tìm hiểu thêm</a>
+                <a href="#documents" class="btn btn-secondary">Xem văn bản</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="container">
+            <div class="section-title">
+                <h3>Giới thiệu đơn vị</h3>
+                <p>Tiểu đoàn 3 - Lữ đoàn 572 - Quân khu 5 là đơn vị có truyền thống vẻ vang, luôn hoàn thành xuất sắc nhiệm vụ được giao</p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎖️</div>
+                    <h4>Truyền thống vẻ vang</h4>
+                    <p>Đơn vị anh hùng với lịch sử 50 năm xây dựng và chiến đấu bảo vệ Tổ quốc, được trao tặng nhiều huân chương cao quý</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Huấn luyện chất lượng</h4>
+                    <p>Hệ thống huấn luyện hiện đại, nâng cao trình độ chuyên môn và sức mạnh chiến đấu cho toàn thể cán bộ chiến sĩ</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h4>Sẵn sàng chiến đấu</h4>
+                    <p>Luôn duy trì thế trận phòng thủ vững chắc, sẵn sàng chiến đấu trong mọi tình huống phức tạp</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🤝</div>
+                    <h4>Đoàn kết nội bộ</h4>
+                    <p>Tinh thần đoàn kết cao, tương thân tương ái, cùng nhau vượt qua mọi khó khăn thử thách</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h4>Thành tích xuất sắc</h4>
+                    <p>Liên tục đạt danh hiệu đơn vị quyết thắng, hoàn thành tốt mọi nhiệm vụ được giao</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔧</div>
+                    <h4>Trang thiết bị hiện đại</h4>
+                    <p>Được trang bị vũ khí, khí tài hiện đại, đảm bảo khả năng chiến đấu trong thời kỳ mới</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Calendar Section -->
+    <section id="calendar" class="section calendar-section">
+        <div class="container">
+            <div class="section-title">
+                <h3>Lịch công tác</h3>
+                <p>Theo dõi lịch công tác, diễn tập và các hoạt động quan trọng của đơn vị</p>
+            </div>
+            
+            <div class="calendar-container">
+                <div class="calendar-main">
+                    <div class="calendar-header">
+                        <h4 style="color: #1e3a8a; margin: 0;">Tháng 9 năm 2025</h4>
+                        <div class="calendar-nav">
+                            <button onclick="previousMonth()">‹ Trước</button>
+                            <button onclick="nextMonth()">Sau ›</button>
+                        </div>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid">
+                        <!-- Calendar will be generated by JavaScript -->
+                    </div>
+                </div>
+                
+                <div class="upcoming-events">
+                    <h4 style="color: #1e3a8a; margin-bottom: 1.5rem;">Sự kiện sắp tới</h4>
+                    
+                    <div class="event-item">
+                        <div class="event-date">01/09/2025</div>
+                        <div class="event-title">Diễn tập chiến thuật cấp tiểu đoàn</div>
+                        <p>Diễn tập tình huống phòng thủ khu vực</p>
+                    </div>
+                    
+                    <div class="event-item">
+                        <div class="event-date">05/09/2025</div>
+                        <div class="event-title">Hội thi bắn súng</div>
+                        <p>Thi đấu bắn súng cấp lữ đoàn</p>
+                    </div>
+                    
+                    <div class="event-item">
+                        <div class="event-date">10/09/2025</div>
+                        <div class="event-title">Lễ kỷ niệm thành lập đơn vị</div>
+                        <p>Kỷ niệm 15 năm thành lập Tiểu đoàn 3</p>
+                    </div>
+                    
+                    <div class="event-item">
+                        <div class="event-date">15/09/2025</div>
+                        <div class="event-title">Kiểm tra sẵn sàng chiến đấu</div>
+                        <p>Kiểm tra đột xuất từ Bộ Chỉ huy QK5</p>
+                    </div>
+                    
+                    <div class="event-item">
+                        <div class="event-date">20/09/2025</div>
+                        <div class="event-title">Hội nghị tổng kết quý III</div>
+                        <p>Đánh giá kết quả hoạt động 9 tháng đầu năm</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documents Section -->
+    <section id="documents" class="section documents-section">
+        <div class="container">
+            <div class="section-title" style="color: white;">
+                <h3 style="color: white;">Văn bản - Chỉ thị</h3>
+                <p style="color: rgba(255,255,255,0.8);">Tổng hợp các văn bản, chỉ thị, quy định và tài liệu quan trọng</p>
+            </div>
+            
+            <div class="documents-grid">
+                <div class="document-category">
+                    <h4>📋 Chỉ thị - Quyết định</h4>
+                    <ul class="document-list">
+                        <li onclick="openDocument('directive1')">Chỉ thị 03/CT-QK5 về tăng cường kỷ luật</li>
+                        <li onclick="openDocument('directive2')">Quyết định 15/QĐ-TD3 về phân công nhiệm vụ</li>
+                        <li onclick="openDocument('directive3')">Chỉ thị 08/CT-TD3 về công tác huấn luyện</li>
+                        <li onclick="openDocument('directive4')">Quyết định 22/QĐ-QK5 về thi đua năm 2025</li>
+                        <li onclick="openDocument('directive5')">Chỉ thị 12/CT-QK5 về an toàn giao thông</li>
+                    </ul>
+                </div>
+                
+                <div class="document-category">
+                    <h4>📖 Quy chế - Quy định</h4>
+                    <ul class="document-list">
+                        <li onclick="openDocument('regulation1')">Quy chế công tác nội vụ Tiểu đoàn 3</li>
+                        <li onclick="openDocument('regulation2')">Quy định về chế độ trực ban trực chiến</li>
+                        <li onclick="openDocument('regulation3')">Quy chế quản lý vũ khí khí tài</li>
+                        <li onclick="openDocument('regulation4')">Quy định về công tác bảo mật</li>
+                        <li onclick="openDocument('regulation5')">Quy chế sinh hoạt chi bộ</li>
+                    </ul>
+                </div>
+                
+                <div class="document-category">
+                    <h4>📊 Kế hoạch - Phương án</h4>
+                    <ul class="document-list">
+                        <li onclick="openDocument('plan1')">Kế hoạch huấn luyện năm 2025</li>
+                        <li onclick="openDocument('plan2')">Phương án tác chiến khu vực</li>
+                        <li onclick="openDocument('plan3')">Kế hoạch phòng chống thiên tai</li>
+                        <li onclick="openDocument('plan4')">Phương án bảo vệ mục tiêu</li>
+                        <li onclick="openDocument('plan5')">Kế hoạch thi đua yêu nước</li>
+                    </ul>
+                </div>
+                
+                <div class="document-category">
+                    <h4>📚 Tài liệu học tập</h4>
+                    <ul class="document-list">
+                        <li onclick="openDocument('study1')">Giáo trình chiến thuật bộ binh</li>
+                        <li onclick="openDocument('study2')">Tài liệu học tập chính trị</li>
+                        <li onclick="openDocument('study3')">Hướng dẫn sử dụng vũ khí</li>
+                        <li onclick="openDocument('study4')">Giáo trình địa hình quân sự</li>
+                        <li onclick="openDocument('study5')">Tài liệu pháp luật quân sự</li>
+                    </ul>
+                </div>
+                
+                <div class="document-category">
+                    <h4>📋 Báo cáo - Tổng kết</h4>
+                    <ul class="document-list">
+                        <li onclick="openDocument('report1')">Báo cáo tổng kết quý III/2025</li>
+                        <li onclick="openDocument('report2')">Báo cáo tình hình sẵn sàng chiến đấu</li>
+                        <li onclick="openDocument('report3')">Tổng kết công tác huấn luyện</li>
+                        <li onclick="openDocument('report4')">Báo cáo công tác chính trị</li>
+                        <li onclick="openDocument('report5')">Tổng kết công tác hậu cần</li>
+                    </ul>
+                </div>
+                
+                <div class="document-category">
+                    <h4>🔒 Tài liệu mật</h4>
+                    <ul class="document-list">
+                        <li onclick="showAccessDenied()">🔐 Yêu cầu quyền truy cập đặc biệt</li>
+                        <li onclick="showAccessDenied()">🔐 Chỉ dành cho cán bộ chỉ huy</li>
+                        <li onclick="showAccessDenied()">🔐 Tài liệu mật cấp độ cao</li>
+                        <li onclick="showAccessDenied()">🔐 Phương án tác chiến bí mật</li>
+                        <li onclick="showAccessDenied()">🔐 Báo cáo tình báo nội bộ</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Training Section -->
+    <section id="training" class="section training-section">
+        <div class="container">
+            <div class="section-title">
+                <h3>Chương trình huấn luyện</h3>
+                <p>Theo dõi tiến độ và kết quả huấn luyện của các đơn vị trực thuộc</p>
+            </div>
+            
+            <div class="training-grid">
+                <div class="training-card">
+                    <div class="training-header">
+                        <div class="training-icon">🎯</div>
+                        <h4>Huấn luyện bắn súng</h4>
+                    </div>
+                    <div class="training-content">
+                        <p><strong>Thời gian:</strong> Thứ 2, 4, 6 hàng tuần</p>
+                        <p><strong>Địa điểm:</strong> Trường bắn Đồi 82</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                        <p><strong>Tiến độ:</strong> 85% hoàn thành</p>
+                        <p><strong>Kết quả:</strong> 95% đạt yêu cầu</p>
+                    </div>
+                </div>
+                
+                <div class="training-card">
+                    <div class="training-header">
+                        <div class="training-icon">🏃</div>
+                        <h4>Thể lực quân sự</h4>
+                    </div>
+                    <div class="training-content">
+                        <p><strong>Thời gian:</strong> 05:30 - 07:00 hàng ngày</p>
+                        <p><strong>Địa điểm:</strong> Sân thể thao đơn vị</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 92%"></div>
+                        </div>
+                        <p><strong>Tiến độ:</strong> 92% hoàn thành</p>
+                        <p><strong>Kết quả:</strong> 98% đạt chuẩn</p>
+                    </div>
+                </div>
+                
+                <div class="training-card">
+                    <div class="training-header">
+                        <div class="training-icon">🗺️</div>
+                        <h4>Chiến thuật địa hình</h4>
+                    </div>
+                    <div class="training-content">
+                        <p><strong>Thời gian:</strong> Thứ 3, 5, 7 hàng tuần</p>
+                        <p><strong>Địa điểm:</strong> Khu vực tác chiến A</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 78%"></div>
+                        </div>
+                        <p><strong>Tiến độ:</strong> 78% hoàn thành</p>
+                        <p><strong>Kết quả:</strong> 88% đạt yêu cầu</p>
+                    </div>
+                </div>
+                
+                <div class="training-card">
+                    <div class="training-header">
+                        <div class="training-icon">🔧</div>
+                        <h4>Kỹ thuật khí tài</h4>
+                    </div>
+                    <div class="training-content">
+                        <p><strong>Thời gian:</strong> Các buổi chiều trong tuần</p>
+                        <p><strong>Địa điểm:</strong> Xưởng kỹ thuật</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 89%"></div>
+                        </div>
+                        <p><strong>Tiến độ:</strong> 89% hoàn thành</p>
+                        <p><strong>Kết quả:</strong> 94% đạt yêu cầu</p>
+                    </div>
+                </div>
+                
+                <div class="training-card">
+                    <div class="training-header">
+                        <div class="training-icon">🛡️</div>
+                        <h4>Phòng thủ hóa học</h4>
+                    </div>
+                    <div class="training-content">
+                        <p><strong>Thời gian:</strong> Thứ 7 hàng tuần</p>
+                        <p><strong>Địa điểm:</strong> Khu vực diễn tập B</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 73%"></div>
+                        </div>
+                        <p><strong>Tiến độ:</strong> 73% hoàn thành</p>
+                        <p><strong>Kết quả:</strong> 91% đạt chuẩn</p>
+                    </div>
+                </div>
+                
+                <div class="training-card">
+                    <div class="training-header">
+                        <div class="training-icon">📡</div>
+                        <h4>Thông tin liên lạc</h4>
+                    </div>
+                    <div class="training-content">
+                        <p><strong>Thời gian:</strong> Các buổi tối trong tuần</p>
+                        <p><strong>Địa điểm:</strong> Trung tâm thông tin</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 96%"></div>
+                        </div>
+                        <p><strong>Tiến độ:</strong> 96% hoàn thành</p>
+                        <p><strong>Kết quả:</strong> 97% đạt xuất sắc</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section class="section dashboard">
+        <div class="container">
+            <div class="section-title">
+                <h3 style="color: white;">Thống kê tổng quan</h3>
+                <p style="color: rgba(255,255,255,0.8);">Những con số biểu hiện sức mạnh và tiềm năng của đơn vị</p>
+            </div>
+            
+            <div class="dashboard-grid">
+                <div class="dashboard-card">
+                    <div class="dashboard-number">450</div>
+                    <h4>Cán bộ chiến sĩ</h4>
+                    <p>Toàn bộ quân số của đơn vị</p>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-number">15</div>
+                    <h4>Năm kinh nghiệm</h4>
+                    <p>Lịch sử xây dựng và phát triển</p>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-number">98%</div>
+                    <h4>Tỷ lệ hoàn thành</h4>
+                    <p>Nhiệm vụ được giao năm 2025</p>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-number">25</div>
+                    <h4>Danh hiệu thi đua</h4>
+                    <p>Các giải thưởng đã đạt được</p>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-number">12</div>
+                    <h4>Đại đội trực thuộc</h4>
+                    <p>Các đơn vị cấp dưới</p>
+                </div>
+                
+                <div class="dashboard-card">
+                    <div class="dashboard-number">156</div>
+                    <h4>Khí tài trang bị</h4>
+                    <p>Vũ khí và phương tiện kỹ thuật</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="news" class="section news-section">
+        <div class="container">
+            <div class="section-title">
+                <h3>Tin tức - Hoạt động</h3>
+                <p>Cập nhật những tin tức mới nhất về hoạt động và thành tích của đơn vị</p>
+            </div>
+            
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-image">📰</div>
+                    <div class="news-content">
+                        <div class="news-date">25/08/2025</div>
+                        <div class="news-title">Hội thi "Bậc thầy kỹ thuật" năm 2025</div>
+                        <p>Tiểu đoàn tổ chức thành công hội thi "Bậc thầy kỹ thuật" với sự tham gia của 120 cán bộ chiến sĩ. Cuộc thi diễn ra trong 3 ngày với nhiều nội dung chuyên môn cao...</p>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-image">🏋️</div>
+                    <div class="news-content">
+                        <div class="news-date">20/08/2025</div>
+                        <div class="news-title">Diễn tập chiến thuật cấp tiểu đoàn</div>
+                        <p>Thành công tổ chức diễn tập chiến thuật quy mô lớn với nhiều tình huống phức tạp, thể hiện khả năng sẵn sàng chiến đấu cao của toàn đơn vị...</p>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-image">🎯</div>
+                    <div class="news-content">
+                        <div class="news-date">15/08/2025</div>
+                        <div class="news-title">Hội thao bắn súng năm 2025</div>
+                        <p>Đơn vị đạt giải nhất toàn đoàn trong hội thao bắn súng cấp lữ đoàn với thành tích xuất sắc. 15 xạ thủ đạt danh hiệu "Xạ thủ bách phát bách trúng"...</p>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-image">🏆</div>
+                    <div class="news-content">
+                        <div class="news-date">10/08/2025</div>
+                        <div class="news-title">Đón nhận Cờ thi đua của Bộ Quốc phòng</div>
+                        <p>Tiểu đoàn 3 vinh dự được trao tặng Cờ thi đua của Bộ Quốc phòng năm 2025, ghi nhận những thành tích xuất sắc trong công tác huấn luyện và sẵn sàng chiến đấu...</p>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-image">🤝</div>
+                    <div class="news-content">
+                        <div class="news-date">05/08/2025</div>
+                        <div class="news-title">Chương trình "Quân dân đoàn kết"</div>
+                        <p>Tổ chức thành công chương trình "Quân dân đoàn kết" với việc hỗ trợ xây dựng 5 nhà tình nghĩa cho các gia đình chính sách tại địa phương...</p>
+                    </div>
+                </div>
+                
+                <div class="news-card">
+                    <div class="news-image">💻</div>
+                    <div class="news-content">
+                        <div class="news-date">01/08/2025</div>
+                        <div class="news-title">Ứng dụng công nghệ số trong quản lý</div>
+                        <p>Triển khai thành công hệ thống quản lý số hóa, nâng cao hiệu quả công tác chỉ huy điều hành và quản lý cán bộ chiến sĩ...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section contact-section">
+        <div class="container">
+            <div class="section-title">
+                <h3>Thông tin liên hệ</h3>
+                <p>Kênh liên lạc và thông tin liên hệ với Tiểu đoàn 3</p>
+            </div>
+            
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h4 style="color: #1e3a8a; margin-bottom: 1.5rem;">Thông tin liên lạc</h4>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📍</div>
+                        <div>
+                            <h5>Địa chỉ trụ sở</h5>
+                            <p>Căn cứ Tiểu đoàn 3, Lữ đoàn 572<br>Quân khu 5, Việt Nam</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">📞</div>
+                        <div>
+                            <h5>Điện thoại</h5>
+                            <p>Trực ban: (024) 3xxx-xxxx<br>Fax: (024) 3xxx-xxxy</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">✉️</div>
+                        <div>
+                            <h5>Email</h5>
+                            <p>tieudoan3@572.mil.vn<br>thongtin@td3-572.vn</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item">
+                        <div class="contact-icon">⏰</div>
+                        <div>
+                            <h5>Thời gian làm việc</h5>
+                            <p>Thứ 2 - Thứ 6: 07:30 - 11:30, 13:30 - 17:30<br>Trực ban 24/7</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="contact-form">
+                    <h4 style="color: #1e3a8a; margin-bottom: 1.5rem;">Gửi liên hệ</h4>
+                    <form>
+                        <div class="form-group">
+                            <label>Họ và tên *</label>
+                            <input type="text" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Đơn vị</label>
+                            <input type="text">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Email *</label>
+                            <input type="email" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Số điện thoại</label>
+                            <input type="tel">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Loại liên hệ</label>
+                            <select>
+                                <option>Chọn loại liên hệ</option>
+                                <option>Công tác chuyên môn</option>
+                                <option>Hỗ trợ kỹ thuật</option>
+                                <option>Thông tin chung</option>
+                                <option>Khiếu nại - Góp ý</option>
+                                <option>Khác</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label>Nội dung *</label>
+                            <textarea rows="5" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Gửi liên hệ</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Tiểu đoàn 3</h4>
+                    <p>Đơn vị anh hùng - Truyền thống vẻ vang</p>
+                    <p>📍 Lữ đoàn 572 - Quân khu 5</p>
+                    <p>📞 (024) 3xxx-xxxx</p>
+                    <p>✉️ tieudoan3@572.mil.vn</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Liên kết nhanh</h4>
+                    <p><a href="#calendar" style="color: #ccc; text-decoration: none;">Lịch công tác</a></p>
+                    <p><a href="#documents" style="color: #ccc; text-decoration: none;">Văn bản chỉ thị</a></p>
+                    <p><a href="#training" style="color: #ccc; text-decoration: none;">Chương trình huấn luyện</a></p>
+                    <p><a href="#news" style="color: #ccc; text-decoration: none;">Tin tức hoạt động</a></p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Dịch vụ</h4>
+                    <p>🔐 Cổng thông tin nội bộ</p>
+                    <p>📱 Ứng dụng di động</p>
+                    <p>📧 Hệ thống email</p>
+                    <p>☎️ Tổng đài hỗ trợ</p>
+                </div>
+                
+                <div class="footer-section">
+                    <h4>Theo dõi</h4>
+                    <p>📱 Ứng dụng TD3-Mobile</p>
+                    <p>🌐 Cổng thông tin điện tử</p>
+                    <p>📺 Kênh truyền hình nội bộ</p>
+                    <p>📻 Đài phát thanh đơn vị</p>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 Tiểu đoàn 3 - Lữ đoàn 572 - Quân khu 5. Bảo lưu mọi quyền.</p>
+                <p>Phát triển bởi Ban Kỹ thuật - Tiểu đoàn 3 | Phiên bản 2.1.0</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h3 style="color: #1e3a8a; margin-bottom: 1rem;">🔐 Đăng nhập hệ thống</h3>
+            <form>
+                <div class="form-group">
+                    <label>Tên đăng nhập:</label>
+                    <input type="text" placeholder="Nhập tên đăng nhập">
+                </div>
+                <div class="form-group">
+                    <label>Mật khẩu:</label>
+                    <input type="password" placeholder="Nhập mật khẩu">
+                </div>
+                <div class="form-group">
+                    <label>Phòng ban:</label>
+                    <select>
+                        <option>Chọn phòng ban</option>
+                        <option>Ban chỉ huy</option>
+                        <option>Phòng Chính trị</option>
+                        <option>Phòng Kỹ thuật</option>
+                        <option>Phòng Tham mưu</option>
+                        <option>Phòng Hậu cần</option>
+                        <option>Các đại đội</option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-primary" style="width: 100%;">Đăng nhập</button>
+                <p style="text-align: center; margin-top: 1rem; color: #666;">
+                    <small>Liên hệ quản trị viên nếu quên mật khẩu</small>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Document Modal -->
+    <div id="documentModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('documentModal')">&times;</span>
+            <div id="documentContent">
+                <!-- Document content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Current date and calendar
+        let currentMonth = 8; // September (0-indexed)
+        let currentYear = 2025;
+        
+        const monthNames = [
+            "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6",
+            "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
+        ];
+        
+        const dayNames = ["CN", "T2", "T3", "T4", "T5", "T6", "T7"];
+        
+        // Events data
+        const events = {
+            '2025-09-01': 'Diễn tập chiến thuật',
+            '2025-09-05': 'Hội thi bắn súng',
+            '2025-09-10': 'Kỷ niệm thành lập đơn vị',
+            '2025-09-15': 'Kiểm tra sẵn sàng chiến đấu',
+            '2025-09-20': 'Hội nghị tổng kết',
+            '2025-09-25': 'Thi đua kỷ luật',
+            '2025-09-30': 'Báo cáo tháng'
+        };
+
+        // Document data
+        const documents = {
+            'directive1': {
+                title: 'Chỉ thị 03/CT-QK5 về tăng cường kỷ luật',
+                content: `
+                    <h4>QUÂN KHU 5 - BAN CHỈ HUY</h4>
+                    <h3 style="text-align: center; color: #1e3a8a;">CHỈ THỊ SỐ 03/2025/CT-QK5</h3>
+                    <p style="text-align: center;"><strong>Về việc tăng cường công tác giáo dục kỷ luật</strong></p>
+                    
+                    <p><strong>QUÂN UỶ QUÂN KHU 5</strong></p>
+                    
+                    <p>Căn cứ Nghị quyết số 765/NQ-QUTW của Quân ủy Trung ương về tăng cường kỷ luật quân đội;</p>
+                    <p>Căn cứ tình hình thực tế tại các đơn vị thuộc Quân khu 5;</p>
+                    
+                    <h5>CHỈ THỊ:</h5>
+                    
+                    <p><strong>Điều 1.</strong> Tăng cường công tác giáo dục chính trị tư tưởng</p>
+                    <p><strong>Điều 2.</strong> Nâng cao ý thức chấp hành kỷ luật của cán bộ chiến sĩ</p>
+                    <p><strong>Điều 3.</strong> Tổ chức kiểm tra, giám sát thường xuyên</p>
+                    
+                    <p style="margin-top: 2rem;"><strong>Chỉ thị có hiệu lực từ ngày ký.</strong></p>
+                    <p style="text-align: right; margin-top: 2rem;">
+                        <strong>QUÂN UỶ QUÂN KHU 5<br>
+                        TM. BAN THƯỜNG VỤ<br>
+                        (Đã ký)<br><br>
+                        Thiếu tướng XYZ</strong>
+                    </p>
+                `
+            },
+            'regulation1': {
+                title: 'Quy chế công tác nội vụ Tiểu đoàn 3',
+                content: `
+                    <h4>TIỂU ĐOÀN 3 - LỮ ĐOÀN 572</h4>
+                    <h3 style="text-align: center; color: #1e3a8a;">QUY CHẾ CÔNG TÁC NỘI VỤ</h3>
+                    
+                    <h5>CHƯƠNG I: NHỮNG QUY ĐỊNH CHUNG</h5>
+                    <p><strong>Điều 1.</strong> Quy chế này quy định về tổ chức, hoạt động nội vụ của Tiểu đoàn 3</p>
+                    
+                    <h5>CHƯƠNG II: TỔ CHỨC BỘ MÁY</h5>
+                    <p><strong>Điều 2.</strong> Cơ cấu tổ chức bao gồm:</p>
+                    <ul>
+                        <li>Ban chỉ huy Tiểu đoàn</li>
+                        <li>Các phòng ban chức năng</li>
+                        <li>Các đại đội trực thuộc</li>
+                    </ul>
+                    
+                    <h5>CHƯƠNG III: NHIỆM VỤ VÀ QUYỀN HAN</h5>
+                    <p><strong>Điều 3.</strong> Nhiệm vụ chủ yếu:</p>
+                    <ul>
+                        <li>Tổ chức huấn luyện, sẵn sàng chiến đấu</li>
+                        <li>Giáo dục chính trị, kỷ luật</li>
+                        <li>Quản lý hậu cần, kỹ thuật</li>
+                    </ul>
+                `
+            },
+            'plan1': {
+                title: 'Kế hoạch huấn luyện năm 2025',
+                content: `
+                    <h4>TIỂU ĐOÀN 3 - LỮ ĐOÀN 572</h4>
+                    <h3 style="text-align: center; color: #1e3a8a;">KẾ HOẠCH HUẤN LUYỆN NĂM 2025</h3>
+                    
+                    <h5>I. MỤC TIÊU HUẤN LUYỆN</h5>
+                    <p>1. Nâng cao khả năng sẵn sàng chiến đấu của đơn vị</p>
+                    <p>2. Đảm bảo 100% quân số đạt chuẩn kỹ thuật</p>
+                    <p>3. Hoàn thành xuất sắc các chỉ tiêu được giao</p>
+                    
+                    <h5>II. NỘI DUNG HUẤN LUYỆN</h5>
+                    <table style="width: 100%; border-collapse: collapse; margin: 1rem 0;">
+                        <tr style="background: #f0f0f0;">
+                            <th style="border: 1px solid #ddd; padding: 10px;">STT</th>
+                            <th style="border: 1px solid #ddd; padding: 10px;">Nội dung</th>
+                            <th style="border: 1px solid #ddd; padding: 10px;">Thời gian</th>
+                            <th style="border: 1px solid #ddd; padding: 10px;">Đơn vị tổ chức</th>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">1</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Huấn luyện bắn súng</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">T2,T4,T6 hàng tuần</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Các đại đội</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">2</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Thể dục thể thao</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Hàng ngày 05:30</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Toàn đơn vị</td>
+                        </tr>
+                        <tr>
+                            <td style="border: 1px solid #ddd; padding: 8px; text-align: center;">3</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Chiến thuật</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">T3,T5,T7 hàng tuần</td>
+                            <td style="border: 1px solid #ddd; padding: 8px;">Phòng Tham mưu</td>
+                        </tr>
+                    </table>
+                `
+            }
+        };
+
+        // Generate calendar
+        function generateCalendar() {
+            const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+            
+            document.querySelector('.calendar-header h4').textContent = `${monthNames[currentMonth]} năm ${currentYear}`;
+            
+            let calendarHTML = '';
+            
+            // Day headers
+            dayNames.forEach(day => {
+                calendarHTML += `<div class="calendar-day" style="font-weight: bold; background: #1e3a8a; color: white;">${day}</div>`;
+            });
+            
+            // Empty cells for days before month starts
+            for (let i = 0; i < firstDay; i++) {
+                calendarHTML += '<div class="calendar-day" style="background: #f3f4f6;"></div>';
+            }
+            
+            // Days of month
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dateStr = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+                const hasEvent = events[dateStr] ? 'has-event' : '';
+                const title = events[dateStr] ? `title="${events[dateStr]}"` : '';
+                
+                calendarHTML += `<div class="calendar-day ${hasEvent}" ${title}>${day}</div>`;
+            }
+            
+            document.getElementById('calendarGrid').innerHTML = calendarHTML;
+        }
+
+        // Calendar navigation
+        function previousMonth() {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            generateCalendar();
+        }
+
+        function nextMonth() {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            generateCalendar();
+        }
+
+        // Open document
+        function openDocument(docId) {
+            const doc = documents[docId];
+            if (doc) {
+                document.getElementById('documentContent').innerHTML = `
+                    <h3 style="color: #1e3a8a; margin-bottom: 1rem;">${doc.title}</h3>
+                    <div style="line-height: 1.8; text-align: justify;">${doc.content}</div>
+                `;
+                openModal('documentModal');
+            } else {
+                alert('Tài liệu đang được cập nhật. Vui lòng thử lại sau!');
+            }
+        }
+
+        // Show access denied for classified documents
+        function showAccessDenied() {
+            document.getElementById('documentContent').innerHTML = `
+                <div style="text-align: center; padding: 3rem;">
+                    <div style="font-size: 4rem; color: #ef4444; margin-bottom: 1rem;">🔐</div>
+                    <h3 style="color: #ef4444;">Truy cập bị từ chối</h3>
+                    <p>Bạn không có quyền truy cập vào tài liệu này.</p>
+                    <p>Vui lòng liên hệ quản trị viên để được cấp quyền.</p>
+                    <button class="btn btn-primary" onclick="closeModal('documentModal')" style="margin-top: 1rem;">
+                        Đóng
+                    </button>
+                </div>
+            `;
+            openModal('documentModal');
+        }
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Header background on scroll
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('.header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(30, 58, 138, 0.95)';
+                header.style.backdropFilter = 'blur(10px)';
+            } else {
+                header.style.background = 'linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%)';
+                header.style.backdropFilter = 'none';
+            }
+        });
+
+        // Animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 1s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.feature-card, .news-card, .dashboard-card, .training-card, .document-category').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.dashboard-number');
+            counters.forEach(counter => {
+                const target = parseInt(counter.textContent.replace('%', ''));
+                const isPercentage = counter.textContent.includes('%');
+                let current = 0;
+                const increment = target / 50;
+                
+                const updateCounter = () => {
+                    if (current < target) {
+                        current += increment;
+                        counter.textContent = Math.ceil(current) + (isPercentage ? '%' : '');
+                        setTimeout(updateCounter, 50);
+                    } else {
+                        counter.textContent = target + (isPercentage ? '%' : '');
+                    }
+                };
+                
+                updateCounter();
+            });
+        }
+
+        // Progress bar animation
+        function animateProgressBars() {
+            const progressBars = document.querySelectorAll('.progress-fill');
+            progressBars.forEach(bar => {
+                const width = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => {
+                    bar.style.width = width;
+                }, 500);
+            });
+        }
+
+        // Trigger animations when sections are visible
+        const dashboardObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    dashboardObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const trainingObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateProgressBars();
+                    trainingObserver.unobserve(entry.target);
+                }
+            });
+        });
+
+        const dashboard = document.querySelector('.dashboard');
+        const trainingSection = document.querySelector('.training-section');
+        
+        if (dashboard) dashboardObserver.observe(dashboard);
+        if (trainingSection) trainingObserver.observe(trainingSection);
+
+        // Modal functions
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modals = document.querySelectorAll('.modal');
+            modals.forEach(modal => {
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const nav = document.querySelector('.nav');
+            nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+            if (nav.style.display === 'flex') {
+                nav.style.position = 'absolute';
+                nav.style.top = '100%';
+                nav.style.left = '0';
+                nav.style.right = '0';
+                nav.style.background = '#1e3a8a';
+                nav.style.flexDirection = 'column';
+                nav.style.padding = '1rem';
+                nav.style.gap = '1rem';
+                nav.style.boxShadow = '0 5px 15px rgba(0,0,0,0.3)';
+            }
+        }
+
+        // Form submission
+        document.querySelector('.contact-form form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Cảm ơn bạn đã gửi liên hệ! Chúng tôi sẽ phản hồi trong thời gian sớm nhất.');
+        });
+
+        // Search functionality for documents
+        function searchDocuments(query) {
+            const documentLists = document.querySelectorAll('.document-list li');
+            documentLists.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(query.toLowerCase())) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Add loading animation
+        window.addEventListener('load', () => {
+            document.body.style.opacity = '1';
+            generateCalendar();
+        });
+
+        // Set initial opacity
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.5s ease';
+
+        // Notification system
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#1e3a8a'};
+                color: white;
+                padding: 1rem 2rem;
+                border-radius: 8px;
+                z-index: 3000;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                animation: slideIn 0.3s ease;
+            `;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        // Auto-refresh news every 30 minutes (simulation)
+        setInterval(() => {
+            console.log('Checking for new updates...');
+            // In real implementation, this would fetch new data
+        }, 30 * 60 * 1000);
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'l') {
+                e.preventDefault();
+                openModal('loginModal');
+            }
+            if (e.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    if (modal.style.display === 'block') {
+                        modal.style.display = 'none';
+                        document.body.style.overflow = 'auto';
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
